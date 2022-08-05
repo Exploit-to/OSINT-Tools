@@ -100,137 +100,185 @@
 
             switch (site.test) {
                 case 'string':
-                    fail_code = 404
-                    nexfil_test = "string"
+                    fetch(b + url, {
+                        method: "GET",
+                        redirect: "follow",
+                    }).then((response) => {
+                        if (response.status !== 404) {
+                            return response.text()
+                        }
+                    }).then(((rtxt) => {
+                        if (rtxt.includes(site.data)) {
+                            return {
+                                [url]: true
+                            }
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    })).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
                 case 'redirect':
-                    nexfil_test = "redirect"
-                    redirect_option = "error"
+                    fetch(b + url, {
+                        method: "GET",
+                        redirect: "error",
+                    }).then((response) => {
+                        if (response.status === 200) {
+                            return {
+                                [url]: true
+                            }
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
                 case 'method':
-                    nexfil_test = "method"
-                    fail_code = 404
+                    fetch(b + url, {
+                        method: "GET",
+                        redirect: "follow",
+                    }).then((response) => {
+                        if (response.status !== 404) {
+                            return {
+                                [url]: true
+                            }
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
                 case 'alt':
-                    nexfil_test = "alt"
-                    url = site.data
-                    redirect_option = "error"
+                    fetch(b + site.data, {
+                        method: "GET",
+                        redirect: "error",
+                    }).then((response) => {
+                        if (response.status === 200) {
+                            return {
+                                [url]: true
+                            }
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
                 case 'api':
-                    nexfil_test = "api"
-                    fail_code = 404
+                    fetch(b + url, {
+                        method: "GET",
+                        redirect: "follow",
+                    }).then((response) => {
+                        if (response.status !== 404) {
+                            return response.json()
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).then((jRes) => {
+                        if (jRes) {
+                            ['results', 'users', 'username'].forEach((field) => {
+                                if (jRes[field] && jRes[field].toString().length > 0) {
+                                    return {
+                                        [url]: true
+                                    }
+                                } else {
+                                    return {
+                                        [url]: false
+                                    }
+                                }
+                            })
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
                 case 'url':
-                    request_type = "HEAD"
-                    nexfil_test = "url"
+                    fetch(b + url, {
+                        method: "HEAD",
+                        redirect: "follow",
+                    }).then((response) => {
+                        if (response.status === 200) {
+                            return {
+                                [url]: true
+                            }
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
                 case 'subdomain':
-                    request_type = "HEAD"
-                    nexfil_test = "subdomain"
-                    redirect_option = "error"
+                    fetch(b + url, {
+                        method: "HEAD",
+                        redirect: "error",
+                    }).then((response) => {
+                        if (response.status === 200) {
+                            return {
+                                [url]: true
+                            }
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
                 default:
-                    request_type = "HEAD"
-                    nexfil_test = ""
-                    redirect_option = "follow"
+                    fetch(b + url, {
+                        method: "HEAD",
+                        redirect: "error",
+                    }).then((response) => {
+                        if (response.status === 200) {
+                            return {
+                                [url]: true
+                            }
+                        } else {
+                            return {
+                                [url]: false
+                            }
+                        }
+                    }).catch((err) => {
+                        return {
+                            [url]: false
+                        }
+                    })
                     break;
-            }
-
-            let nexFilResp = await fetch(b + url, {
-                method: request_type,
-                redirect: redirect_option,
-            }).catch((err) => {
-                return {
-                    [url]: false
-                }
-            })
-            
-            //let nexFilResp2 = await nexFilResp.clone();
-            if (nexfil_test === "api") {
-                console.log("nexfil_test: ",nexfil_test," ---> ",url)
-                let responseTextJson = await nexFilResp.json();
-            } else {
-                console.log("nexfil_test: " ,nexfil_test," ---> ",url)
-                let responseText = await nexFilResp.text();
-            }
-
-            if (nexfil_test === "method" && nexFilResp.status !== fail_code) {
-                // method
-                return {
-                    [url]: true
-                }
-            } else if (nexfil_test === "string" && nexFilResp.status !== fail_code) {
-                // string 
-                    if (responseText.includes(site.data)) {
-                        return {
-                            [url]: true
-                        }
-                    }            
-            } else if (nexfil_test === "redirect" && nexFilResp.status === 200 && nexFilResp.ok) {
-                // redirect 
-                return {
-                    [url]: true
-                }
-            } else if (nexfil_test === "api" && nexFilResp.status !== fail_code && responseText.length !== 0) {
-                // api 
-                let possibleFields = ['results', 'users', 'username']
-                possibleFields.forEach((field) => {
-                    if (responseTextJson[field] && responseTextJson[field].toString().length > 0) {
-                        return {
-                            [url]: true
-                        }
-                    }
-                })
-            }
-
-            if (codes.includes(nexFilResp.status)) {
-                // standard 
-                if (nexfil_test === "") {
-                    return {
-                        [url]: true
-                    }
-                } else if (nexfil_test === "url" && nexFilResp.status === 200) {
-                    return {
-                        [url]: true
-                    }
-                } else if (nexfil_test === "subdomain" && nexFilResp.status === 200) {
-                    return {
-                        [url]: true
-                    }
-                }
-            } else if (nexFilResp.status === 404) {
-                let getResp = await fetch(b + url, {
-                    method: "GET",
-                    redirect: "error",
-                }).catch((err) => {
-                    // redirect, alt
-                    return {
-                        [url]: false
-                    }
-                })
-                if (getResp.status === 200) {
-                    return {
-                        [url]: true
-                    }
-                }
-            } else {
-                return {
-                    [url]: false
-                }
-            }
-
-            // standard
-            if (nexfil_test === "standard" && nexFilResp.status === 200) {
-                return {
-                    [url]: true
-                }
-            }
-
-            // alt 
-            if (nexfil_test === "alt" && nexFilResp.status === 200) {
-                return {
-                    [url]: true
-                }
             }
 
 

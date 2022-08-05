@@ -1,4 +1,6 @@
 # OSINT-Tools Hauptseite
+[![ForTheBadge uses-js](http://ForTheBadge.com/images/badges/uses-js.svg)](http://ForTheBadge.com) [![ForTheBadge uses-html](http://ForTheBadge.com/images/badges/uses-html.svg)](http://ForTheBadge.com)
+
 Das Repository fÅr die Tools auf https://exploit.to/osint-tools/
 
 ## Datentypen
