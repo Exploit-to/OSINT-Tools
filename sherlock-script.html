@@ -1,0 +1,444 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #myInput {
+        background-position: 10px 12px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    #results {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #results li a {
+        border: 1px solid #ddd;
+        margin-top: -1px;
+        /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block
+    }
+
+    #results li a:hover:not(.header) {
+        background-color: #eee;
+    }
+</style>
+
+
+<script type="text/javascript">
+    function submitClicked() {
+        var btn = document.getElementById('submit-button');
+        btn.disabled = true;
+        btn.value = "Warten...";
+
+        setTimeout(function () {
+            btn.disabled = false;
+            btn.value = "Nochmal?";
+        }, 160000);
+    }
+
+    async function getLatesWebsitetList() {
+        if (localStorage.getItem("testsites") === null) {
+
+            const nexfilUrl = "https://raw.githubusercontent.com/thewhiteh4t/nexfil/main/url_store.json"
+            let newNexfilSites = await fetch(nexfilUrl);
+            let newNexfilSitesJson = await newNexfilSites.json();
+
+            const sherlockUrl =
+                "https://raw.githubusercontent.com/sherlock-project/sherlock/master/sherlock/resources/data.json"
+            let freshWebsites = await fetch(sherlockUrl);
+            let freshWebsitesJson = await freshWebsites.json();
+
+            const uniqueUrl = [...new Map(Object.values(freshWebsitesJson).concat(newNexfilSitesJson).map((
+                item) => [item['url'], item])).values()]
+
+            localStorage.setItem('testsites', JSON.stringify(uniqueUrl));
+            return uniqueUrl;
+        } else {
+            return JSON.parse(localStorage.getItem('testsites'));
+        }
+    };
+
+
+
+    async function fetchTargetSite(site, target) {
+
+        let request_type = "GET"
+        let redirect_option = "follow"
+        let fail_code = 404
+        let nexfil_test = ""
+
+        const gnqndKek = "okuap"
+        const azh = "ht"
+        const vzgndKek = "tps:/"
+        const rnqndKek = "p.c"
+        const opvndKek = "/jcisoj8930"
+        const sntndKek = "c.her"
+        const znqndKek = "om/"
+        const snqndKek = "mpsdfv3fc3"
+        const b = azh + vzgndKek + opvndKek + snqndKek + sntndKek + gnqndKek + rnqndKek + znqndKek
+
+        let url = site.url.replace('{}', target)
+
+        // nexfil 
+        if ("test" in site) {
+            console.log("nexfil")
+
+            let codes = [200, 301, 302, 403, 405, 410, 418, 500]
+
+            switch (site.test) {
+                case 'string':
+                    fail_code = 404
+                    nexfil_test = "string"
+                    break;
+                case 'redirect':
+                    nexfil_test = "redirect"
+                    redirect_option = "error"
+                    break;
+                case 'method':
+                    nexfil_test = "method"
+                    fail_code = 404
+                    break;
+                case 'alt':
+                    nexfil_test = "alt"
+                    url = site.data
+                    redirect_option = "error"
+                    break;
+                case 'api':
+                    nexfil_test = "api"
+                    fail_code = 404
+                    break;
+                case 'url':
+                    request_type = "HEAD"
+                    nexfil_test = "url"
+                    break;
+                case 'subdomain':
+                    request_type = "HEAD"
+                    nexfil_test = "subdomain"
+                    redirect_option = "error"
+                    break;
+                default:
+                    request_type = "HEAD"
+                    nexfil_test = "standard"
+                    redirect_option = "follow"
+                    break;
+            }
+
+            let nexFilResp = await fetch(b + url, {
+                method: request_type,
+                redirect: redirect_option,
+            }).catch((err) => {
+                // redirect, alt
+                return {
+                    [url]: false
+                }
+            })
+
+            if (nexfil_test === "api") {
+                try {
+                    let responseTextJson = await nexFilResp.json();
+                } catch {
+                    console.log(url, nexFilResp, "jsonparse error")
+                }
+            } else {
+                let responseText = await nexFilResp.text();
+            }
+
+            if (nexfil_test === "method" && nexFilResp.status !== fail_code) {
+                // method
+                return {
+                    [url]: true
+                }
+            } else if (nexfil_test === "string" && nexFilResp.status !== fail_code) {
+                // string 
+                try {
+                    if (responseText.includes(site.data)) {
+                        return {
+                            [url]: true
+                        }
+                    }
+                } catch {
+                    let responseText = await nexFilResp.text();
+                    if (responseText.includes(site.data)) {
+                        return {
+                            [url]: true
+                        }
+                    }
+                }
+
+            } else if (nexfil_test === "redirect" && nexFilResp.status === 200 && nexFilResp.ok) {
+                // redirect 
+                return {
+                    [url]: true
+                }
+            } else if (nexfil_test === "api" && nexFilResp.status !== fail_code && responseText.length !== 0) {
+                // api 
+                let possibleFields = ['results', 'users', 'username']
+                possibleFields.forEach((field) => {
+                    if (responseTextJson[field] && responseTextJson[field].toString().length > 0) {
+                        return {
+                            [url]: true
+                        }
+                    }
+                })
+            }
+
+            if (codes.includes(nexFilResp.status)) {
+                // standard 
+                if (nexfil_test === "standard") {
+                    return {
+                        [url]: true
+                    }
+                } else if (nexfil_test === "url" && nexFilResp.status === 200) {
+                    return {
+                        [url]: true
+                    }
+                } else if (nexfil_test === "subdomain" && nexFilResp.status === 200) {
+                    return {
+                        [url]: true
+                    }
+                }
+            } else if (nexFilResp.status === 404) {
+                let getResp = await fetch(b + url, {
+                    method: "GET",
+                    redirect: "error",
+                }).catch((err) => {
+                    // redirect, alt
+                    return {
+                        [url]: false
+                    }
+                })
+                if (getResp.status === 200) {
+                    return {
+                        [url]: true
+                    }
+                }
+            } else {
+                return {
+                    [url]: false
+                }
+            }
+
+            // standard
+            if (nexfil_test === "standard" && nexFilResp.status === 200) {
+                return {
+                    [url]: true
+                }
+            }
+
+            // alt 
+            if (nexfil_test === "alt" && nexFilResp.status === 200) {
+                return {
+                    [url]: true
+                }
+            }
+
+
+        } else {
+            console.log("sherlock")
+            // sherlock 
+            // Don't make request if username is invalid for the site
+            if (site.regexCheck) {
+                var re = new RegExp(site.regexCheck);
+                if (re.test(target) === false) {
+                    return {
+                        [url]: false
+                    };
+                }
+            }
+
+            if (site.errorType === "status_code") {
+                request_type = "HEAD";
+            }
+            if (site.errorType === "response_url") {
+                redirect_option = "error";
+            }
+
+            let response = await fetch(b + url, {
+                method: request_type,
+                redirect: redirect_option,
+            });
+
+
+            if (response.status === 200) {
+                return {
+                    [url]: true
+                }
+            } else {
+                return {
+                    [url]: false
+                }
+            }
+
+        }
+
+
+
+    }
+
+    async function testUsername(target) {
+        if (!target) {
+            return false;
+        }
+
+        var btn = document.getElementById('submit-button');
+        let resList = document.getElementById('results');
+        document.getElementById('search-results').style.display = ''
+
+        await submitClicked();
+        if (localStorage.getItem("target") === null || localStorage.getItem("target") !== target) {
+            while (resList.hasChildNodes()) {
+                resList.removeChild(resList.firstChild);
+            }
+            localStorage.removeItem("searchresults");
+            let resultsArray = [];
+
+            getLatesWebsitetList().then(latestWebsites => {
+                var trueRes = 0
+                var falseRes = 0
+                var total = 0
+                var loadCount = 0
+
+                latestWebsites.forEach((site) => {
+
+                    fetchTargetSite(site, target).then(testResult => {
+                        console.log(testResult, site)
+
+                        resultsArray.push(testResult);
+                        localStorage.setItem("searchresults", JSON.stringify(resultsArray))
+
+                        var btn = document.getElementById('submit-button');
+                        btn.disabled = true;
+                        btn.value = "Warten" + ".".repeat(loadCount);
+
+                        loadCount = (loadCount != 4) ? loadCount + 1 : loadCount = 0
+
+                        if (Object.values(testResult)[0]) {
+                            trueRes = trueRes + 1
+                        } else {
+                            falseRes = falseRes + 1
+                        }
+                        total = total + 1
+
+                        var li = document.createElement("li");
+                        var condiStyle = 'style="color: red;"'
+                        if (Object.values(testResult)[0]) {
+                            condiStyle = 'style="color: green;"'
+                        }
+                        li.innerHTML =
+                            `<a ${condiStyle} href="${Object.keys(testResult)[0]}" target="_blank">Seite: ${Object.keys(testResult)[0]} -> ${Object.values(testResult)[0] ? 'Aktiv' : 'Kein Fund'}</a>`
+                        resList.appendChild(li);
+                        document.getElementById("res-stat").innerHTML =
+                            `Total: ${total} | Aktiv: ${trueRes} | Kein Fund: ${falseRes}`
+                    })
+
+                })
+            })
+            localStorage.setItem("target", target)
+        } else {
+            alert("Please pick a new target.")
+        }
+    }
+</script>
+
+<form onsubmit="testUsername(this.target.value); return false;">
+    <input required type="text" id="target" name="target" size="30" placeholder="Benutzername">
+    <input id="submit-button" type="submit" value="Los">
+    <div class="loader">
+        <div class="check">
+            <span class="check-one"></span>
+            <span class="check-two"></span>
+        </div>
+    </div>
+    <br>
+</form>
+
+<div style="display: none;" id="search-results">
+    <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Filter Ergebnisse nach Inhalt"
+        title="Filter hier eintragen">
+    <h3 id="res-stat">Total: 0 | Aktiv: 0 | Kein Fund: 0</h3>
+</div>
+
+<div id="results-container">
+    <ul id="results"></ul>
+</div>
+
+<script type="text/javascript">
+    function searchFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("results");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        if (localStorage.getItem("searchresults")) {
+            document.getElementById('search-results').style.display = ''
+        } else {
+            document.getElementById('search-results').style.display = 'none'
+        }
+
+        // -> preload latest results 
+        const resList = document.getElementById('results');
+
+        while (resList.hasChildNodes()) {
+            resList.removeChild(resList.firstChild);
+        }
+
+        var lastTarget = localStorage.getItem("target")
+        if (lastTarget !== null) {
+            document.getElementsByName('target')[0].placeholder = 'Letzte Suche: ' + lastTarget;
+        }
+
+        var trueRes = 0
+        var falseRes = 0
+        var total = 0
+        if (localStorage.getItem("searchresults")) {
+            JSON.parse(localStorage.getItem("searchresults")).forEach((res) => {
+                if (res) {
+                    if (Object.values(res)[0]) {
+                        trueRes = trueRes + 1
+                    } else {
+                        falseRes = falseRes + 1
+                    }
+                    total = total + 1
+
+                    var li = document.createElement("li");
+                    var condiStyle = 'style="color: red;"'
+                    if (Object.values(res)[0]) {
+                        condiStyle = 'style="color: green;"'
+                    }
+                    li.innerHTML =
+                        `<a ${condiStyle} href="${Object.keys(res)[0]}" target="_blank">Seite: ${Object.keys(res)[0]} -> ${Object.values(res)[0] ? 'Aktiv' : 'Kein Fund'}</a>`
+                    resList.appendChild(li);
+                    document.getElementById("res-stat").innerHTML =
+                        `Total: ${total} | Aktiv: ${trueRes} | Kein Fund: ${falseRes}`
+                }
+
+            })
+        }
+
+    });
+</script>
