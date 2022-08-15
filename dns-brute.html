@@ -1,0 +1,79 @@
+
+
+<script>
+
+    async function getLatesBruteList() {
+        if (localStorage.getItem("brute") === null) {
+            //const dnsBruteList = "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/combined_subdomains.txt"
+            const dnsBruteList = "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt"
+            let dnsBruteListResult = await fetch(dnsBruteList);
+            let dnsBruteListFinal = await dnsBruteListResult.text();
+            localStorage.setItem('brute', JSON.stringify(dnsBruteListFinal.split("\n")));
+            return dnsBruteListFinal;
+        } else {
+            return JSON.parse(localStorage.getItem('brute'));
+        }
+    };
+
+    async function testDns(subdomain, target) {
+        let targetResponse = await fetch("https://dns.google/resolve?name=" + subdomain + "." + target, {
+            method: "GET",
+            redirect: "error",
+        }).catch((err) => {
+            return {
+                [subdomain + "." + target]: false
+            }
+        })
+        
+        let googleResp = await targetResponse.json()
+
+        if (googleResp.Authority[0].name === subdomain + "." + target) {
+            return {
+                [subdomain + "." + target]: googleResp.Authority
+            }
+        }
+    }
+
+    async function dnsBruteForce(target) {
+        if (!target) {
+            return false;
+        }
+        let resultsArray = [];
+
+        getLatesBruteList().then((bruteList) => {
+            bruteList.forEach((subd) => {
+                testDns(subd, target).then(dnsRes => {
+                    console.log(dnsRes)
+                    resultsArray.push(dnsRes);
+                })
+            })
+        })
+
+
+
+    }
+
+</script>
+
+<form onsubmit="dnsBruteForce(this.hostTarget.value); return false;">
+    <input required type="text" id="hostTarget" name="hostTarget" size="30" placeholder="Website">
+    <input id="submit-button" type="submit" value="Los">
+    </div>
+    <br>
+</form>
+
+<div style="display: none;" id="search-results">
+    <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Filter Ergebnisse nach Inhalt"
+        title="Filter hier eintragen">
+    <h3 id="res-stat">Total: 0 | Aktiv: 0 | Kein Fund: 0</h3>
+</div>
+
+<div id="results-container">
+    <ul id="results"></ul>
+</div>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function (event) {
+    let dnsBruteListFinal = getLatesBruteList()
+})
+</script>
