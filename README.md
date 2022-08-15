@@ -4,7 +4,7 @@
 Das Repository fr die Tools auf https://exploit.to/osint-tools/
 
 ## Datentypen
-- E-Mail Adressen -> [Demo](https://exploit.to/osint-tools-e-mail-adressen/) | [Code](https://github.com/Exploit-to/OSINT-Tools/blob/main/email.html)
+- E-Mail Adressen -> [Demo](https://exploit.to/osint-tools-e-mail-adressen/) | [Code](https://github.com/Exploit-to/OSINT-Tools/blob/main/tools/email.html)
 - Benutzernamen
 - Namen
 - Adressen
