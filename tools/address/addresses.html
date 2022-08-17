@@ -1,41 +1,4 @@
-<div class="address-body">
-    <h4 class="card-title">Address Search Tool</h4>
-    <hr>
-    <p class="card-text">Enter all lowercase letters:
-        <script type="text/javascript">
-            function doPopAll(number, street, city, state, zip) {
-                for (j = 1; j <= 100; j++) {
-                    if (j < 10) {
-                        j = "0" + j.toString();
-                    } else {
-                        j = j.toString();
-                    }
-                    console.log("Search" + j + "a")
-                    numberToPop = document.getElementById("Search" + j + "a");
-                    streetToPop = document.getElementById("Search" + j + "b");
-                    cityToPop = document.getElementById("Search" + j + "c");
-                    stateToPop = document.getElementById("Search" + j + "d");
-                    zipToPop = document.getElementById("Search" + j + "e");
-                    if (numberToPop != null && streetToPop != null) {
-                        numberToPop.value = number;
-                        streetToPop.value = street;
-                        cityToPop.value = city;
-                        stateToPop.value = state;
-                        zipToPop.value = zip;
-                    }
-                }
-            }
-        </script>
-    </p>
-    <form
-        onsubmit="doPopAll(this.Search00a.value, this.Search00b.value, this.Search00c.value, this.Search00d.value, this.Search00e.value); return false;">
-        <input type="text" name="Search00a" id="Search00a" size="4" placeholder="1212">
-        <input type="text" name="Search00b" id="Search00b" size="7" placeholder="main st">
-        <input type="text" name="Search00c" id="Search00c" size="8" placeholder="new york">
-        <input type="text" name="Search00d" id="Search00d" size="3" placeholder="ny">
-        <input type="text" name="Search00e" id="Search00e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="Populate"><br></form>
-    <br>
+<div class="address-body">        
     <script type="text/javascript">
         function doSearch01(Search01a, Search01b, Search01c, Search01d, Search01e) {
             window.open('https://services.gisgraphy.com/geocoding/geocode?address=' + Search01a + '+' + Search01b +
@@ -49,7 +12,7 @@
         <input type="text" name="Search01c" id="Search01c" size="8" placeholder="new york">
         <input type="text" name="Search01d" id="Search01d" size="3" placeholder="ny">
         <input type="text" name="Search01e" id="Search01e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="GPS"></form>
+        <input type="submit"  value="GPS"></form>
     <script type="text/javascript">
         function doSearch02(Search02a, Search02b, Search02c, Search02d, Search02e) {
             window.open('https://www.zillow.com/homes/' + Search02a + '-' + Search02b + '-' + Search02c + '_rb/',
@@ -63,7 +26,7 @@
         <input type="text" name="Search02c" id="Search02c" size="8" placeholder="new york">
         <input type="text" name="Search02d" id="Search02d" size="3" placeholder="ny">
         <input type="text" name="Search02e" id="Search02e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="Zillow"></form>
+        <input type="submit"  value="Zillow"></form>
     <script type="text/javascript">
         function doSearch03(Search03a, Search03b, Search03c, Search03d, Search03e) {
             window.open('https://rehold.com/' + Search03c + '+' + Search03d + '/' + Search03b + '/' + Search03a,
@@ -77,7 +40,7 @@
         <input type="text" name="Search03c" id="Search03c" size="8" placeholder="new york">
         <input type="text" name="Search03d" id="Search03d" size="3" placeholder="ny">
         <input type="text" name="Search03e" id="Search03e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="Rehold"></form>
+        <input type="submit"  value="Rehold"></form>
     <script type="text/javascript">
         function doSearch04(Search04a, Search04b, Search04c, Search04d, Search04e) {
             window.open('https://www.google.com/search?q=' + Search04a + '+' + Search04b + '+' + Search04c + '+' +
@@ -91,7 +54,7 @@
         <input type="text" name="Search04c" id="Search04c" size="8" placeholder="new york">
         <input type="text" name="Search04d" id="Search04d" size="3" placeholder="ny">
         <input type="text" name="Search04e" id="Search04e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="Google"></form>
+        <input type="submit"  value="Google"></form>
     <script type="text/javascript">
         function doSearch05(Search05a, Search05b, Search05c, Search05d, Search05e) {
             window.open('https://www.cyberbackgroundchecks.com/address/' + Search05a + '-' + Search05b + '/' +
@@ -105,7 +68,7 @@
         <input type="text" name="Search05c" id="Search05c" size="8" placeholder="new york">
         <input type="text" name="Search05d" id="Search05d" size="3" placeholder="ny">
         <input type="text" name="Search05e" id="Search05e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="CBC"></form>
+        <input type="submit"  value="CBC"></form>
     <script type="text/javascript">
         function doSearch06(Search06a, Search06b, Search06c, Search06d, Search06e) {
             window.open('https://homemetry.com/house/' + Search06a + '+' + Search06b + ',+' + Search06c + '+' +
@@ -119,7 +82,7 @@
         <input type="text" name="Search06c" id="Search06c" size="8" placeholder="new york">
         <input type="text" name="Search06d" id="Search06d" size="3" placeholder="ny">
         <input type="text" name="Search06e" id="Search06e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="Hometry"></form>
+        <input type="submit"  value="Hometry"></form>
     <script type="text/javascript">
         function doSearch07(Search07a, Search07b, Search07c, Search07d, Search07e) {
             window.open('https://www.searchpeoplefree.com/address/' + Search07d + '/' + Search07c + '/' + Search07b +
@@ -133,7 +96,7 @@
         <input type="text" name="Search07c" id="Search07c" size="8" placeholder="new york">
         <input type="text" name="Search07d" id="Search07d" size="3" placeholder="ny">
         <input type="text" name="Search07e" id="Search07e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="SPF"></form>
+        <input type="submit"  value="SPF"></form>
     <script type="text/javascript">
         function doSearch08(Search08a, Search08b, Search08c, Search08d, Search08e) {
             window.open('https://www.spokeo.com/' + Search08d + '/' + Search08c + '/' + Search08a + '-' + Search08b,
@@ -147,7 +110,7 @@
         <input type="text" name="Search08c" id="Search08c" size="8" placeholder="new york">
         <input type="text" name="Search08d" id="Search08d" size="3" placeholder="ny">
         <input type="text" name="Search08e" id="Search08e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="Spokeo"></form>
+        <input type="submit"  value="Spokeo"></form>
     <script type="text/javascript">
         function doSearch09(Search09a, Search09b, Search09c, Search09d, Search09e) {
             window.open('https://www.advancedbackgroundchecks.com/address/' + Search09a + '-' + Search09b + '_' +
@@ -161,7 +124,7 @@
         <input type="text" name="Search09c" id="Search09c" size="8" placeholder="new york">
         <input type="text" name="Search09d" id="Search09d" size="3" placeholder="ny">
         <input type="text" name="Search09e" id="Search09e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="ABC"></form>
+        <input type="submit"  value="ABC"></form>
     <script type="text/javascript">
         function doSearch10(Search10a, Search10b, Search10c, Search10d, Search10e) {
             window.open('https://www.truepeoplesearch.com/resultaddress?streetaddress=' + Search10a + '%20' +
@@ -175,7 +138,7 @@
         <input type="text" name="Search10c" id="Search10c" size="8" placeholder="new york">
         <input type="text" name="Search10d" id="Search10d" size="3" placeholder="ny">
         <input type="text" name="Search10e" id="Search10e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="TPS"></form>
+        <input type="submit"  value="TPS"></form>
     <script type="text/javascript">
         function doSearch11(Search11a, Search11b, Search11c, Search11d, Search11e) {
             window.open('https://www.fastpeoplesearch.com/address/' + Search11a + '-' + Search11b + '_' + Search11c +
@@ -189,7 +152,7 @@
         <input type="text" name="Search11c" id="Search11c" size="8" placeholder="new york">
         <input type="text" name="Search11d" id="Search11d" size="3" placeholder="ny">
         <input type="text" name="Search11e" id="Search11e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="FPS"></form>
+        <input type="submit"  value="FPS"></form>
 
     <script type="text/javascript">
         function doSearch13(Search13a, Search13b, Search13c, Search13d, Search13e) {
@@ -204,7 +167,7 @@
         <input type="text" name="Search13c" id="Search13c" size="8" placeholder="new york">
         <input type="text" name="Search13d" id="Search13d" size="3" placeholder="ny">
         <input type="text" name="Search13e" id="Search13e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="PSN"></form>
+        <input type="submit"  value="PSN"></form>
     <script type="text/javascript">
         function doSearch14(Search14a, Search14b, Search14c, Search14d, Search14e) {
             window.open('https://www.whitepages.com/address/' + Search14a + '-' + Search14b + '/' + Search14c + '-' +
@@ -218,7 +181,7 @@
         <input type="text" name="Search14c" id="Search14c" size="8" placeholder="new york">
         <input type="text" name="Search14d" id="Search14d" size="3" placeholder="ny">
         <input type="text" name="Search14e" id="Search14e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="WP"></form>
+        <input type="submit"  value="WP"></form>
     <script type="text/javascript">
         function doSearch15(Search15a, Search15b, Search15c, Search15d, Search15e) {
             window.open('https://www.smartbackgroundchecks.com/address-search/' + Search15a + '-' + Search15b + '/' +
@@ -232,7 +195,7 @@
         <input type="text" name="Search15c" id="Search15c" size="8" placeholder="new york">
         <input type="text" name="Search15d" id="Search15d" size="3" placeholder="ny">
         <input type="text" name="Search15e" id="Search15e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="SBC"></form>
+        <input type="submit"  value="SBC"></form>
 
     <script type="text/javascript">
         function doSearch17(Search17a, Search17b, Search17c, Search17d, Search17e) {
@@ -247,7 +210,7 @@
         <input type="text" name="Search17c" id="Search17c" size="8" placeholder="new york">
         <input type="text" name="Search17d" id="Search17d" size="3" placeholder="ny">
         <input type="text" name="Search17e" id="Search17e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="USA PS"></form>
+        <input type="submit"  value="USA PS"></form>
     <script type="text/javascript">
         function doSearch18(Search18a, Search18b, Search18c, Search18d, Search18e) {
             window.open('https://www.peoplefinders.com/people/search/address?address=' + Search18a + '%20' + Search18b +
@@ -261,7 +224,7 @@
         <input type="text" name="Search18c" id="Search18c" size="8" placeholder="new york">
         <input type="text" name="Search18d" id="Search18d" size="3" placeholder="ny">
         <input type="text" name="Search18e" id="Search18e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="PF"></form>
+        <input type="submit"  value="PF"></form>
     <script type="text/javascript">
         function doSearch19(Search19a, Search19b, Search19c, Search19d, Search19e) {
             window.open('https://www.addresses.com/addr/' + Search19a + '+' + Search19b + '/' + Search19c + '+' +
@@ -275,7 +238,7 @@
         <input type="text" name="Search19c" id="Search19c" size="8" placeholder="new york">
         <input type="text" name="Search19d" id="Search19d" size="3" placeholder="ny">
         <input type="text" name="Search19e" id="Search19e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="Address"></form><br>
+        <input type="submit"  value="Address"></form><br>
     <script type="text/javascript">
         function doall(Search99a, Search99b, Search99c, Search99d, Search99e) {
             window.open('https://services.gisgraphy.com/geocoding/geocode?address=' + Search99a + '+' + Search99b +
@@ -321,6 +284,6 @@
         <input type="text" name="Search99c" id="Search99c" size="8" placeholder="new york">
         <input type="text" name="Search99d" id="Search99d" size="3" placeholder="ny">
         <input type="text" name="Search99e" id="Search99e" size="5" placeholder="10102">
-        <input type="submit" style="width:80px" value="All"><br></form>
+        <input type="submit"  value="All"><br></form>
     <p></p>
 </div>

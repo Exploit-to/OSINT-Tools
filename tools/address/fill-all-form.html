@@ -1,0 +1,88 @@
+<style>
+    .fill-all-address-form {
+        margin-right: 50px
+    }
+
+    .mb-3 {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .submit-mobile-form-custom {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .input-size {
+        width: 70%;
+    }
+
+    /* For Mobile */
+    @media screen and (max-width: 540px) {
+        .input-size {
+            width: 50%;
+        }
+
+        .fill-all-address-form {
+            margin-right: 0px
+        }
+    }
+</style>
+
+
+<script type="text/javascript">
+    function prefillAllForms(number, street, city, state, zip) {
+        for (j = 1; j <= 100; j++) {
+            if (j < 10) {
+                j = "0" + j.toString();
+            } else {
+                j = j.toString();
+            }
+            console.log("Search" + j + "a")
+            numberToPop = document.getElementById("Search" + j + "a");
+            streetToPop = document.getElementById("Search" + j + "b");
+            cityToPop = document.getElementById("Search" + j + "c");
+            stateToPop = document.getElementById("Search" + j + "d");
+            zipToPop = document.getElementById("Search" + j + "e");
+            if (numberToPop != null && streetToPop != null) {
+                numberToPop.value = number;
+                streetToPop.value = street;
+                cityToPop.value = city;
+                stateToPop.value = state;
+                zipToPop.value = zip;
+            }
+        }
+    }
+</script>
+
+
+<form class="fill-all-address-form"
+    onsubmit="prefillAllForms(this.MSHausnummer.value, this.MSStrasse.value, this.MSStadt.value, this.MSStaat.value, this.MSPostleitzahl.value); return false;">
+    <fieldset>
+        <legend>Zieldadresse hier eingeben</legend>
+        <div class="mb-3 flex-form-custom ">
+            <label for="MSHausnummer">Hausnummer</label>
+            <input class="input-size" type="text" name="MSHausnummer" id="MSHausnummer" placeholder="123">
+        </div>
+        <div class="mb-3">
+            <label for="MSStrasse">Straáe</label>
+            <input class="input-size" type="text" name="MSStrasse" id="MSStrasse" placeholder="Kastanienalee">
+        </div>
+        <div class="mb-3">
+            <label for="MSStadt">Stadt</label>
+            <input class="input-size" type="text" name="MSStadt" id="MSStadt" placeholder="Frankfurt">
+        </div>
+        <div class="mb-3">
+            <label for="MSStaat">Bundesland/Staat</label>
+            <input class="input-size" type="text" name="MSStaat" id="MSStaat" placeholder="Hessen">
+        </div>
+        <div class="mb-3">
+            <label for="MSPostleitzahl">Postleitzahl</label>
+            <input class="input-size" type="text" name="MSPostleitzahl" id="MSPostleitzahl" placeholder="12356">
+        </div>
+        <div class="mb-3">
+            <input class="submit-mobile-form-custom" type="submit" value="Alles Befllen">
+        </div>
+    </fieldset>
+</form>
