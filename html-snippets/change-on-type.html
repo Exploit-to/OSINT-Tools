@@ -1,0 +1,163 @@
+<script type="text/javascript">
+    function delay(fn, ms) {
+        let timer = 0
+        return function (...args) {
+            clearTimeout(timer)
+            timer = setTimeout(fn.bind(this, ...args), ms || 0)
+        }
+    }
+
+    function fillDefault() {
+        let usernameTarget = localStorage.getItem("prefill_osint-guide-benutzernamen")
+        if (usernameTarget) {
+            jQuery(".username-input-field-sbhkuzwbrsdfds").placeholder = "Letzte: " + usernameTarget
+            jQuery(".username-input-field-sbhkuzwbrsdfds").value = usernameTarget
+
+        } else {
+            jQuery(".username-input-field-sbhkuzwbrsdfds").placeholder = "Nutzername eintragen"
+            jQuery(".username-input-field-sbhkuzwbrsdfds").value = "ItzKarl0z"
+
+            jQuery("#knowem-link-usernames")[0].href = "https://knowem.com/checkusernames.php?u=" + usernameTarget
+            jQuery("#knowem-link-socialnames")[0].href = "https://knowem.com/checksocialnames.php?u=" + usernameTarget
+            jQuery("#knowem-link-usernames")[0].innerText = "https://knowem.com/checkusernames.php?u=" + usernameTarget
+            jQuery("#knowem-link-socialnames")[0].innerText = "https://knowem.com/checksocialnames.php?u=" +
+                usernameTarget
+
+            jQuery("#namevine-search-link")[0].href = "https://namevine.com/#/" + usernameTarget
+            jQuery("#namevine-search-link")[0].innerText = "https://namevine.com/#/" + usernameTarget
+
+            jQuery("#social-searcher-username-link")[0].href = "https://www.social-searcher.com/search-users/?q6=" +
+                usernameTarget
+            jQuery("#social-searcher-username-link")[0].innerText =
+                "https://www.social-searcher.com/search-users/?q6=" + usernameTarget
+
+            jQuery('#linklist-usersearch > li > a').toArray().forEach((item) => {
+                let link = item.href
+                let replacer = link.split("?URL_username=")[1]
+                replacer = "ItzKarl0z"
+                item.innerText = link.split("?URL_username")[0] + "?URL_username=" + replacer
+                item.href = link.split("?URL_username")[0] + "?URL_username=" + replacer
+            })
+        }
+    }
+
+    function cacheToLocal(input) {
+        if (input.length >= 1) {
+            localStorage.setItem("prefill_osint-guide-benutzernamen", input)
+        }
+
+        if (localStorage.getItem("prefill_osint-guide-benutzernamen")) {
+            jQuery("#namevine-search-link")[0].href = "https://namevine.com/#/" + input
+            jQuery("#namevine-search-link")[0].innerText = "https://namevine.com/#/" + input
+
+            jQuery("#knowem-link-usernames")[0].href = "https://knowem.com/checkusernames.php?u=" + input
+            jQuery("#knowem-link-socialnames")[0].href = "https://knowem.com/checksocialnames.php?u=" + input
+            jQuery("#knowem-link-usernames")[0].innerText = "https://knowem.com/checkusernames.php?u=" + input
+            jQuery("#knowem-link-socialnames")[0].innerText = "https://knowem.com/checksocialnames.php?u=" + input
+
+            jQuery("#social-searcher-username-link")[0].href = "https://www.social-searcher.com/search-users/?q6=" +
+                input
+            jQuery("#social-searcher-username-link")[0].innerText =
+                "https://www.social-searcher.com/search-users/?q6=" + input
+
+            jQuery('#linklist-usersearch > li > a').toArray().forEach((item) => {
+                let link = item.href
+                let replacer = link.split("?URL_username=")[1]
+                replacer = input
+                item.innerText = link.split("?URL_username")[0] + "?URL_username=" + replacer
+                item.href = link.split("?URL_username")[0] + "?URL_username=" + replacer
+            })
+            return localStorage.getItem("prefill_osint-guide-benutzernamen")
+        } else {
+            fillDefault()
+        }
+    }
+
+    fillDefault()
+
+
+
+    jQuery('.username-input-field-sbhkuzwbrsdfds').keyup(delay(function (e) {
+        if (this.value.length >= 1) {
+            cacheToLocal(this.value)
+        }
+    }, 100));
+
+    function openAllPages() {
+        let parameters = jQuery('#linklist-usersearch > li > a').toArray()
+        window.open("https://usersearch.org/results_normal.php?URL_username=" + parameters[0], "newWindow01")
+        window.open("https://usersearch.org/results_advanced.php?URL_username=" + parameters[1], "newWindow02")
+        window.open("https://usersearch.org/results_advanced1.php?URL_username=" + parameters[2], "newWindow03")
+        window.open("https://usersearch.org/results_advanced2.php?URL_username=" + parameters[3], "newWindow04")
+        window.open("https://usersearch.org/results_advanced3.php?URL_username=" + parameters[4], "newWindow05")
+        window.open("https://usersearch.org/results_advanced4.php?URL_username=" + parameters[5], "newWindow06")
+        window.open("https://usersearch.org/results_advanced5.php?URL_username=" + parameters[6], "newWindow07")
+        window.open("https://usersearch.org/results_advanced6.php?URL_username=" + parameters[7], "newWindow08")
+        window.open("https://usersearch.org/results_advanced7.php?URL_username=" + parameters[8], "newWindow09")
+        window.open("https://usersearch.org/results_dating.php?URL_username=" + parameters[9], "newWindow10")
+        window.open("https://usersearch.org/results_forums.php?URL_username=" + parameters[10], "newWindow11")
+        window.open("https://usersearch.org/results_crypto.php?URL_username=" + parameters[11], "newWindow12")
+    }
+    jQuery(".username-input-field-sbhkuzwbrsdfds").submit(function (e) {
+        e.preventDefault();
+    });
+    jQuery("#username-input-field-sbhkuzwbrsdfds1").keyup(function (e) {
+        jQuery("#username-input-field-sbhkuzwbrsdfds1").css({
+            "border-color": "green",
+            "border-style": "solid",
+            "border-width": "3px",
+            "border-radius": "25px",
+        })
+
+    });
+</script>
+
+
+
+
+
+
+
+<input style="width:100%; background-color:white; margin-bottom:5px; text-align: center;"
+    class="username-input-field-sbhkuzwbrsdfds" type="text" placeholder="Username eingeben" />
+<br>
+<ul id="linklist-usersearch">
+    <li><a target="_blank"
+            href="https://usersearch.org/results_normal.php?URL_username=ItzKarl0z">https://usersearch.org/results_normal.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced1.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced1.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced2.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced2.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced3.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced3.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced4.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced4.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced5.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced5.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced6.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced6.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_advanced7.php?URL_username=ItzKarl0z">https://usersearch.org/results_advanced7.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_dating.php?URL_username=ItzKarl0z">https://usersearch.org/results_dating.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_forums.php?URL_username=ItzKarl0z">https://usersearch.org/results_forums.php?URL_username=ItzKarl0z</a>
+    </li>
+    <li><a target="_blank"
+            href="https://usersearch.org/results_crypto.php?URL_username=ItzKarl0z">https://usersearch.org/results_crypto.php?URL_username=ItzKarl0z</a>
+    </li>
+</ul>
+<button onclick="openAllPages()">Alle ”ffnen</button>
+<span><i class="fa fa-arrow-left"></i> Vorsicht ”ffnet 12 neue Tabs<i class="fa fa-circle-exclamation"></i></span>

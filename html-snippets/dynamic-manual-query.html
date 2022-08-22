@@ -1,0 +1,84 @@
+<script type="text/javascript">
+
+    function fillDefault() {
+        jQuery("#zzzpopo_twitter")[0].href = jQuery("#zzzpopo_twitter")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_twitter")[0].innerText = jQuery("#zzzpopo_twitter")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_facebook")[0].href = jQuery("#zzzpopo_facebook")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_facebook")[0].innerText = jQuery("#zzzpopo_facebook")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_instagram")[0].href = jQuery("#zzzpopo_instagram")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_instagram")[0].innerText = jQuery("#zzzpopo_instagram")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_tiktok")[0].href = jQuery("#zzzpopo_tiktok")[0].href.split(".com/@")[0] + ".com/@" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_tiktok")[0].innerText = jQuery("#zzzpopo_tiktok")[0].href.split(".com/@")[0] + ".com/@" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_tinder")[0].href = jQuery("#zzzpopo_tinder")[0].href.split(".com/@")[0] + ".com/@" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_tinder")[0].innerText = jQuery("#zzzpopo_tinder")[0].href.split(".com/@")[0] + ".com/@" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_tumblr")[0].href = "https://" + localStorage.getItem("prefill_osint-guide-benutzernamen") + ".tumblr.com"
+        jQuery("#zzzpopo_tumblr")[0].innerText = "https://" + localStorage.getItem("prefill_osint-guide-benutzernamen") + ".tumblr.com"
+
+        jQuery("#zzzpopo_snapchat")[0].href = jQuery("#zzzpopo_snapchat")[0].href.split(".com/s/")[0] + ".com/s/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_snapchat")[0].innerText = jQuery("#zzzpopo_snapchat")[0].href.split(".com/s/")[0] + ".com/s/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_medium")[0].href = jQuery("#zzzpopo_medium")[0].href.split(".com/@")[0] + ".com/@" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_medium")[0].innerText = jQuery("#zzzpopo_medium")[0].href.split(".com/@")[0] + ".com/@" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_youtube")[0].href = jQuery("#zzzpopo_youtube")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_youtube")[0].innerText = jQuery("#zzzpopo_youtube")[0].href.split(".com/")[0] + ".com/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+
+        jQuery("#zzzpopo_reddit")[0].href = jQuery("#zzzpopo_reddit")[0].href.split("/user/")[0] + "/user/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_reddit")[0].innerText = jQuery("#zzzpopo_reddit")[0].href.split("/user/")[0] + "/user/" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+    }
+
+
+    fillDefault()
+
+    jQuery('.username-input-field-sbhkuzwbrsdfds').keyup(delay(function (e) {
+        if (this.value.length >= 1) {
+            jQuery("#zzzpopo_twitter")[0].href = jQuery("#zzzpopo_twitter")[0].href.split(".com/")[0] + ".com/" + this.value
+            jQuery("#zzzpopo_twitter")[0].innerText = jQuery("#zzzpopo_twitter")[0].href.split(".com/")[0] + ".com/" + this.value
+
+            jQuery("#zzzpopo_facebook")[0].href = jQuery("#zzzpopo_facebook")[0].href.split(".com/")[0] + ".com/" + this.value
+            jQuery("#zzzpopo_facebook")[0].innerText = jQuery("#zzzpopo_facebook")[0].href.split(".com/")[0] + ".com/" + this.value
+
+            jQuery("#zzzpopo_instagram")[0].href = jQuery("#zzzpopo_instagram")[0].href.split(".com/")[0] + ".com/" + this.value
+            jQuery("#zzzpopo_instagram")[0].innerText = jQuery("#zzzpopo_instagram")[0].href.split(".com/")[0] + ".com/" + this.value
+
+            jQuery("#zzzpopo_tiktok")[0].href = jQuery("#zzzpopo_tiktok")[0].href.split(".com/@")[0] + ".com/@" + this.value
+            jQuery("#zzzpopo_tiktok")[0].innerText = jQuery("#zzzpopo_tiktok")[0].href.split(".com/@")[0] + ".com/@" + this.value
+
+            jQuery("#zzzpopo_tinder")[0].href = jQuery("#zzzpopo_tinder")[0].href.split(".com/@")[0] + ".com/@" + this.value
+            jQuery("#zzzpopo_tinder")[0].innerText = jQuery("#zzzpopo_tinder")[0].href.split(".com/@")[0] + ".com/@" + this.value
+
+            jQuery("#zzzpopo_tumblr")[0].href = "https://" + this.value + ".tumblr.com"
+            jQuery("#zzzpopo_tumblr")[0].innerText = "https://" + this.value + ".tumblr.com"
+
+            jQuery("#zzzpopo_snapchat")[0].href = jQuery("#zzzpopo_snapchat")[0].href.split(".com/s/")[0] + ".com/s/" + this.value
+            jQuery("#zzzpopo_snapchat")[0].innerText = jQuery("#zzzpopo_snapchat")[0].href.split(".com/s/")[0] + ".com/s/" + this.value
+
+            jQuery("#zzzpopo_medium")[0].href = jQuery("#zzzpopo_medium")[0].href.split(".com/@")[0] + ".com/@" + this.value
+            jQuery("#zzzpopo_medium")[0].innerText = jQuery("#zzzpopo_medium")[0].href.split(".com/@")[0] + ".com/@" + this.value
+
+            jQuery("#zzzpopo_youtube")[0].href = jQuery("#zzzpopo_youtube")[0].href.split(".com/")[0] + ".com/" + this.value
+            jQuery("#zzzpopo_youtube")[0].innerText = jQuery("#zzzpopo_youtube")[0].href.split(".com/")[0] + ".com/" + this.value
+
+            jQuery("#zzzpopo_reddit")[0].href = jQuery("#zzzpopo_reddit")[0].href.split("/user/")[0] + "/user/" + this.value
+            jQuery("#zzzpopo_reddit")[0].innerText = jQuery("#zzzpopo_reddit")[0].href.split("/user/")[0] + "/user/" + this.value
+        }
+    }, 100));
+</script>
+
+<ul id="linklist-manual-usersearch">
+    <li><a id="zzzpopo_twitter" target="_blank" href="https://twitter.com/ItsKarl0z">https://twitter.com/ItsKarl0z</a></li>
+    <li><a id="zzzpopo_facebook" target="_blank" href="https://facebook.com/ItsKarl0z">https://facebook.com/ItsKarl0z</a></li>
+    <li><a id="zzzpopo_instagram" target="_blank" href="https://instagram.com/ItsKarl0z">https://instagram.com/ItsKarl0z</a></li>
+    <li><a id="zzzpopo_tiktok" target="_blank" href="https://www.tiktok.com/@ItsKarl0z">https://www.tiktok.com/@ItsKarl0z</a></li>
+    <li><a id="zzzpopo_tinder" target="_blank" href="https://tinder.com/@ItsKarl0z">https://tinder.com/@ItsKarl0z</a></li>
+    <li><a id="zzzpopo_tumblr" target="_blank" href="https://ItsKarl0z.tumblr.com">https://ItsKarl0z.tumblr.com</a></li>
+    <li><a id="zzzpopo_snapchat" target="_blank" href="https://www.snapchat.com/s/ItsKarl0z">https://www.snapchat.com/s/ItsKarl0z</a></li>
+    <li><a id="zzzpopo_medium" target="_blank" href="https://medium.com/@ItsKarl0z">https://medium.com/@ItsKarl0z</a></li>
+    <li><a id="zzzpopo_youtube" target="_blank" href="https://youtube.com/ItsKarl0z">https://youtube.com/ItsKarl0z</a></li>
+    <li><a id="zzzpopo_reddit" target="_blank" href="https://www.reddit.com/user/ItsKarl0z">https://www.reddit.com/user/ItsKarl0z</a></li>
+</ul>

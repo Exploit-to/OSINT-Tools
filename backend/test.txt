@@ -1,0 +1,13 @@
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-22 21:41 CEST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000045s latency).
+Not shown: 994 closed tcp ports (conn-refused)
+PORT     STATE SERVICE
+631/tcp  open  ipp
+3000/tcp open  ppp
+5000/tcp open  upnp
+6788/tcp open  smc-http
+6789/tcp open  ibm-db2-admin
+7000/tcp open  afs3-fileserver
+
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds

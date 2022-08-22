@@ -10,37 +10,32 @@ const {
     spawn
 } = require('child_process');
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
 
+const nmap = () => {
+    const child = spawn('sh', ['-c','/opt/homebrew/bin/nmap 127.0.0.1']);
 
-
-app.get('/test', (req, res) => {
-    io.on('connection', (socket) => {
-        console.log('a user connected');
-        socket.on('disconnect', () => {
-            console.log('user disconnected');
-        });
-
-        socket.on('chat message', (msg) => {
-            io.emit('chat message', msg);
-        });
-
-        const child = spawn('find', ['.']);
-        child.stdout.on('data', (data) => {
-            io.emit('find result', `\n${data}`);
-        });
-
-        child.on('close', (code) => {
-            io.emit('find result', `child process exited with code ${code}`);
-        });
-
+    child.stdout.on('data', (data) => {
+        socket.emit('output', data.toString());
     });
 
-    res.sendFile(__dirname + '/index.html');
-});
+    child.stderr.on('data', (data) => {
+        socket.emit('output', `${data}`);
+    });
+}
 
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+
+    io.on('connection', (socket) => {
+
+        socket.on('nmap', () => {
+            nmap()
+        })
+
+    })
+
+});
 
 
 server.listen(3000, () => {
