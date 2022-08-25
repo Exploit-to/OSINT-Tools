@@ -25,13 +25,19 @@
             }
         })
         
-        let googleResp = await targetResponse.json()
-
-        if (googleResp.Authority[0].name === subdomain + "." + target) {
-            return {
-                [subdomain + "." + target]: googleResp.Authority
-            }
+        //console.log("https://dns.google/resolve?name=" + subdomain + "." + target)
+        //console.log(targetResponse)
+        if (targetResponse) {
+            let googleResp = await targetResponse.json()
+            console.log(googleResp)
+            if (googleResp.Authority[0].name === subdomain + "." + target) {
+                console.log(subdomain + "." + target,googleResp.Authority)
+                return {
+                    [subdomain + "." + target]: googleResp.Authority
+                }
+            }            
         }
+
     }
 
     async function dnsBruteForce(target) {
@@ -43,8 +49,10 @@
         getLatesBruteList().then((bruteList) => {
             bruteList.forEach((subd) => {
                 testDns(subd, target).then(dnsRes => {
-                    console.log(dnsRes)
-                    resultsArray.push(dnsRes);
+                    if (dnsRes) {
+                        console.log("-----",dnsRes)
+                        resultsArray.push(dnsRes);
+                    }
                 })
             })
         })
@@ -77,3 +85,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let dnsBruteListFinal = getLatesBruteList()
 })
 </script>
+
+
+

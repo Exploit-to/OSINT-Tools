@@ -11,7 +11,7 @@ const {
 } = require('child_process');
 
 
-const nmap = () => {
+const nmap = (socket) => {
     const child = spawn('sh', ['-c','/opt/homebrew/bin/nmap 127.0.0.1']);
 
     child.stdout.on('data', (data) => {
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
     io.on('connection', (socket) => {
 
         socket.on('nmap', () => {
-            nmap()
+            nmap(socket)
         })
 
     })

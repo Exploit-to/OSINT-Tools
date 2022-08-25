@@ -1,0 +1,26 @@
+<script type="text/javascript">
+
+    function fillDefault() {
+        jQuery("#zzzpopo_dehashed")[0].href = jQuery("#zzzpopo_dehashed")[0].href.split("search?query=")[0] + "search?query=" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+        jQuery("#zzzpopo_dehashed")[0].innerText = jQuery("#zzzpopo_dehashed")[0].href.split("search?query=")[0] + "search?query=" + localStorage.getItem("prefill_osint-guide-benutzernamen")
+    }
+
+    fillDefault()
+
+    jQuery('.username-input-field-sbhkuzwbrsdfds').keyup(delay(function (e) {
+        if (this.value.length >= 1) {
+            jQuery("#zzzpopo_dehashed")[0].href = jQuery("#zzzpopo_dehashed")[0].href.split("search?query=")[0] + "search?query=" + this.value
+            jQuery("#zzzpopo_dehashed")[0].innerText = jQuery("#zzzpopo_dehashed")[0].href.split("search?query=")[0] + "search?query=" + this.value
+        }
+    }, 100));
+</script>
+
+<ul id="linklist-manual-breached">
+    <li><a id="zzzpopo_dehashed" target="_blank" href="https://www.dehashed.com/search?query=ItsKarl0z">https://www.dehashed.com/search?query=ItsKarl0z</a></li>
+</ul>
+
+
+d858346a8afd9018e71cc1de4a79f67cf2b6e5f3bbaf0eafb3a17b217251bba5
+
+
+https://api.peopledatalabs.com/v5/person/enrich?api_key=d858346a8afd9018e71cc1de4a79f67cf2b6e5f3bbaf0eafb3a17b217251bba5&pretty=True&profile=twitter.com/ItsKarl0z
